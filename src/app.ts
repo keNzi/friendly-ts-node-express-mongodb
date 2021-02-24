@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import MasterRouter from './routers/MasterRouter';
+import ErrorHandler from './models/ErrorHandler';
 
 // load the environment variables from the .env file
 dotenv.config({
@@ -26,3 +27,12 @@ server.app.listen(PORT, () => console.log(`> Listening on port ${PORT}`));
 
 // make server app handle any route starting with '/'
 server.app.use('/', server.router);
+
+// make server app handle any error
+server.app.use((err: ErrorHandler, req: Request, res: Response, next: NextFunction) => {
+  res.status(err.statusCode || 500).json({
+    status: 'error',
+    statusCode: err.statusCode,
+    message: err.message
+  });
+});
