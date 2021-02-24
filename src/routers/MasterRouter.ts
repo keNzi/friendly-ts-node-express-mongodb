@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import OnlineItemRouter from './OnlineItemRouter';
 import OfflineItemRouter from './OfflineItemRouter';
+import ApiRouter from './ApiRouter';
 
 class MasterRouter {
   private _router = Router();
-  private _subrouterA = OnlineItemRouter;
-  private _subrouterB = OfflineItemRouter;
+  private _onlinerouter = OnlineItemRouter;
+  private _offlinerouter = OfflineItemRouter;
+  private _apirouter = ApiRouter;
 
   get router() {
     return this._router;
@@ -19,8 +21,9 @@ class MasterRouter {
    * Connect routes to their matching routers.
    */
   private _configure() {
-    this._router.use('/online', this._subrouterA);
-    this._router.use('/offline', this._subrouterB);
+    this._router.use('/online', this._onlinerouter);
+    this._router.use('/offline', this._offlinerouter);
+    this._router.use('/api', this._apirouter);
   }
 }
 
