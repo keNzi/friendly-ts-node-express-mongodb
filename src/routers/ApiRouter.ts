@@ -21,7 +21,6 @@ class ApiRouter {
         this.router.get('/item', [], async (req: Request, res: Response, next: NextFunction) => {
             const apiitem = await ApiItem.find({});
             return res.status(200).send(apiitem);
-            // res.status(200).send("<h1>" + this._controller.defaultMethod() + "</h1>GET method");
         });
 
         this.router.post('/newItem', async (req: Request, res: Response, next: NextFunction) => {
