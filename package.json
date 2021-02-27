@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "nodemon src/app.ts"
   },
-  "author": "",
+  "author": "keNzi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/keNzi/friendly-ts-node-express-mongodb.git"
+  },
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
