@@ -1,4 +1,4 @@
-import * as db from './db';
+import * as db from './constants/db';
 import express, { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import { json, urlencoded } from 'body-parser';
