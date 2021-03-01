@@ -1,21 +1,9 @@
-import dotenv from 'dotenv';
+import * as db from './db';
 import express, { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import { json, urlencoded } from 'body-parser';
 import MasterRouter from './routers/MasterRouter';
 import ErrorHandler from './models/ErrorHandler';
-
-// load the environment variables from the .env file
-dotenv.config({
-  path: '.env'
-});
-
-const PORT = process.env.APP_PORT || 5000;
-const MONGODB_URL = process.env.MONGODB_URL || 'localhost';
-const MONGODB_PORT = process.env.MONGODB_PORT || '27017';
-const MONGODB_USER = process.env.MONGODB_USER;
-const MONGODB_PASS = process.env.MONGODB_PASS;
-const MONGODB_DBNAME = process.env.MONGODB_DBNAME;
 
 /**
  * Express server application class.
@@ -27,12 +15,12 @@ class Server {
 }
 
 // Connect to MongoDB
-mongoose.connect(`mongodb://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_URL}:${MONGODB_PORT}/${MONGODB_DBNAME}`, {
+mongoose.connect(`mongodb://${db.MONGODB_USER}:${db.MONGODB_PASS}@${db.MONGODB_URL}:${db.MONGODB_PORT}/${db.MONGODB_DBNAME}`, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true
 }, () => {
-  console.log(`Connected to database ${MONGODB_DBNAME}`)
+  console.log(`Connected to database ${db.MONGODB_DBNAME}`)
 });
 
 // initialize server app
@@ -45,7 +33,7 @@ server.app.use(urlencoded({
 server.app.use(json());
 
 // make server listen on some port
-server.app.listen(PORT, () => console.log(`> Listening on port ${PORT}`));
+server.app.listen(db.PORT, () => console.log(`> Listening on port ${db.PORT}`));
 
 // make server app handle any route starting with '/'
 server.app.use('/', server.router);
